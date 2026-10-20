@@ -6,13 +6,13 @@ A buildless, mobile-first invitation. Upload these files directly to GitHub Page
 
 1. Configure the Google Apps Script endpoint below and paste its `/exec` URL into `ENDPOINT_URL` in `script.js`. Until then the page explains that online RSVP is not open; it never pretends to save a response.
 2. Add an approved host phone number or email in the footer of `index.html`. No contact details were provided, so none are invented. Example: `<a href="mailto:YOUR_EMAIL">Contact the hosts</a>`.
-3. **The supplied invitation artwork says September 13, 2026, Flower Mound Hindu Temple.** The website uses the requested **November 15, 2026, Roanoke Community Centre** details. The download is the original artwork and is explicitly labeled with its older details. Replace `assets/invitation.png` with a corrected invitation before inviting guests if you want a matching keepsake, and remove the old-artwork note from the Save section. Deity crops and decorative assets come from your supplied reference.
+3. The website and downloadable invitation use **9th Month Seemantham & Valaikappu, November 15, 2026, 10:00 AM onwards, Roanoke Community Centre**. The updated invitation includes a labeled QR placeholder. Deity crops and decorative assets come from the supplied reference.
 
 ## Files
 
 - `index.html`, `style.css`, `script.js`: website.
 - `Code.gs`: Google Apps Script backend; not run by GitHub Pages.
-- `assets/invitation.png`: original supplied invitation converted to PNG.
+- `assets/invitation.png`: updated 5 × 7 inch invitation, 1500 × 2100 pixels at 300 DPI.
 - `assets/deity-left.png`, `deity-right.png`: the original framed deity panels.
 - `assets/garland.png`, `lamp.png`, `flowers.png`: cropped original artwork. Brass lamps also appear in the framed source panels.
 - `assets/ceremony.ics`: downloadable calendar event. Start is 16:00 UTC, equivalent to November 15 at 10:00 AM CST. No end time is invented.
