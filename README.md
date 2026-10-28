@@ -1,4 +1,4 @@
-# Seemantham & Gender Reveal
+# Baby Shower & Gender Reveal
 
 Simple, buildless invitation website for Sankarraj & Harsha Priya. The public site is https://harshapriyag123.github.io/babyshower/ .
 
@@ -13,7 +13,7 @@ The ivory, burgundy, olive and soft gold floral design matches the invitation. T
 
 - `assets/invitation.png`: 1500 × 2100 pixels, 300 DPI, 5 × 7 inches, with a scan-tested RSVP QR code.
 - `assets/invitation.pdf`: matching 5 × 7 inch PDF. Website and QR open the RSVP form; venue/address open Google Maps directions. URLs are embedded and are not printed in the invitation.
-- `assets/ceremony.ics`: calendar event titled **Seemantham & Gender Reveal**, starting at 16:00 UTC / 10:00 AM CST on November 15. No end time is invented.
+- `assets/ceremony.ics`: calendar event titled **Baby Shower & Gender Reveal**, starting at 16:00 UTC / 10:00 AM CST on November 15. No end time is invented.
 
 To use clickable invitation links, open/share the PDF as a document. A PNG or a screenshot of the PDF uses the QR code and has no embedded text hyperlinks.
 
