@@ -38,14 +38,12 @@ form.addEventListener('submit', async (event) => {
   if (!form.reportValidity()) return;
   const data = new FormData(form);
   const name = String(data.get('name') || '').trim();
-  const contact = String(data.get('contact') || '').trim();
-  const validContact = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact) || (/^[+\d\s().-]+$/.test(contact) && contact.replace(/\D/g, '').length >= 10 && contact.replace(/\D/g, '').length <= 15);
-  if (!name || !validContact) { status.textContent = 'Please enter your name and a valid email address or phone number (10–15 digits).'; return; }
+  if (!name) { status.textContent = 'Please enter your name.'; return; }
   if (data.get('website')) { status.textContent = 'Unable to submit this response.'; return; }
   if (!ENDPOINT_URL) { status.textContent = 'Online RSVP is not open yet. Please contact the hosts directly.'; return; }
   const requestId = form.dataset.requestId || (crypto.randomUUID ? crypto.randomUUID() : Date.now() + '-' + Math.random().toString(36).slice(2));
   form.dataset.requestId = requestId;
-  const payload = new URLSearchParams({name, contact, attending: form.attending.value, guests: form.attending.value === 'no' ? '0' : form.guests.value, message: String(data.get('message') || '').trim(), website: String(data.get('website') || ''), requestId});
+  const payload = new URLSearchParams({name, attending: form.attending.value, guests: form.attending.value === 'no' ? '0' : form.guests.value, website: String(data.get('website') || ''), requestId});
   busy = true; submit.disabled = true; submit.textContent = 'Sending…'; status.textContent = '';
   try {
     // A form-encoded POST avoids an unnecessary cross-origin preflight.
@@ -58,7 +56,7 @@ form.addEventListener('submit', async (event) => {
     status.textContent = 'Thank you! Your RSVP has been received. We’re grateful for your love and blessings.';
   } catch (error) {
     status.textContent = 'We could not confirm your RSVP. Please retry or contact the hosts. A retry will not duplicate a response already saved.';
-  } finally { busy = false; submit.disabled = false; submit.textContent = 'Send my RSVP ↗'; updateTime(); }
+  } finally { busy = false; submit.disabled = false; submit.textContent = 'RSVP'; updateTime(); }
 });
 if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
   document.documentElement.classList.add('motion-ready');

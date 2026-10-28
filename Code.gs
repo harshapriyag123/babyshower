@@ -1,5 +1,5 @@
 // Google Apps Script. Set the Sheet ID, run setup(), then deploy as a web app.
-const SHEET_ID = 'PASTE_GOOGLE_SHEET_ID_HERE';
+const SHEET_ID = '101RrVt0vfOJSt36vHg3S6Gvy-6DkcsG0CxExJLMHLJM';
 const SHEET_NAME = 'RSVPs';
 const CLOSE_AT = new Date('2026-11-01T00:00:00-05:00');
 const HEADERS = ['Request ID', 'Received', 'Name', 'Phone or Email', 'Attending', 'Total Guests', 'Blessings'];
@@ -36,7 +36,7 @@ function doPost(e) {
     const attending = String(p.attending || '');
     const guests = Number(p.guests);
     const digits = contact.replace(/\D/g, '');
-    const validContact = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact) || (/^[+\d\s().-]+$/.test(contact) && digits.length >= 10 && digits.length <= 15);
+    const validContact = !contact || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact) || (/^[+\d\s().-]+$/.test(contact) && digits.length >= 10 && digits.length <= 15);
     if (!name || name.length > 100 || contact.length > 150 || !validContact || message.length > 2000 || !['yes', 'no'].includes(attending) || !Number.isInteger(guests) || (attending === 'yes' ? guests < 1 || guests > 50 : guests !== 0)) return json_({ok: false, error: 'Invalid fields'});
     sheet.appendRow([id, new Date(), safeCell_(name), safeCell_(contact), attending, guests, safeCell_(message)]);
     SpreadsheetApp.flush();

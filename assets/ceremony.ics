@@ -5,11 +5,15 @@ CALSCALE:GREGORIAN
 METHOD:PUBLISH
 BEGIN:VEVENT
 UID:seemantham-20261115-harsha-sankarraj@invitation.local
-DTSTAMP:20261020T000000Z
+DTSTAMP:20261028T140000Z
+SEQUENCE:1
 DTSTART:20261115T160000Z
 SUMMARY:9th Month Seemantham & Valaikappu (Bangle Ceremony)
-LOCATION:Roanoke Community Centre\, 312 S. Walnut Street\, Roanoke\, TX 76262
-DESCRIPTION:Hosted by Sankarraj Subramani & Harsha Priya.\n10:00 AM Central Time onwards. Lunch will be provided.\nFrom Two Hearts to Three
-URL:https://maps.app.goo.gl/ir1iNtPonS6opa989
+LOCATION:Elite India-BANQUET HALL & CATERING\, 1106 N US Hwy 377\, Roanoke\
+ , TX 76262
+DESCRIPTION:Hosted by Sankarraj Subramani & Harsha Priya.\n10:00 AM Central
+  Time onwards. Lunch will be provided.\nFrom Two Hearts to Three
+URL:https://www.google.com/maps/search/?api=1&query=Elite+India+Banquet+Hal
+ l+1106+N+US+Hwy+377+Roanoke+TX+76262
 END:VEVENT
 END:VCALENDAR

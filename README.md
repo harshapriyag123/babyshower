@@ -6,7 +6,7 @@ A buildless, mobile-first invitation. Upload these files directly to GitHub Page
 
 1. Configure the Google Apps Script endpoint below and paste its `/exec` URL into `ENDPOINT_URL` in `script.js`. Until then the page explains that online RSVP is not open; it never pretends to save a response.
 2. Add an approved host phone number or email in the footer of `index.html`. No contact details were provided, so none are invented. Example: `<a href="mailto:YOUR_EMAIL">Contact the hosts</a>`.
-3. The website and downloadable invitation use **9th Month Seemantham & Valaikappu, November 15, 2026, 10:00 AM onwards, Roanoke Community Centre**. The updated invitation includes a labeled QR placeholder. Deity crops and decorative assets come from the supplied reference.
+3. The website and downloadable invitation use **9th Month Seemantham & Valaikappu, November 15, 2026, 10:00 AM onwards, Elite India–Banquet Hall & Catering, 1106 N US Hwy 377, Roanoke, TX 76262**. The updated invitation includes a labeled QR placeholder. Deity crops and decorative assets come from the supplied reference.
 
 ## Files
 
@@ -23,7 +23,7 @@ A buildless, mobile-first invitation. Upload these files directly to GitHub Page
 2. Copy its spreadsheet ID: the portion between `/d/` and `/edit` in its URL.
 3. From that Sheet choose **Extensions → Apps Script**.
 4. Replace the editor contents with the complete contents of `Code.gs` in this package.
-5. Replace `PASTE_GOOGLE_SHEET_ID_HERE` with the spreadsheet ID. Save.
+5. The supplied response Sheet ID is already configured in `Code.gs`: `101RrVt0vfOJSt36vHg3S6Gvy-6DkcsG0CxExJLMHLJM`. Save.
 6. Select `setup` in the function dropdown and click **Run**. Review and grant the requested spreadsheet access using the account that owns the Sheet. This creates the `RSVPs` tab and its headers. Do not run `doPost` manually.
 7. Choose **Deploy → New deployment → Select type → Web app**. Set **Execute as: Me**, **Who has access: Anyone**. Deploy and authorize if prompted. Your organization's policy may prevent anonymous web apps; use an account that permits this if needed.
 8. Copy the deployed web-app URL ending in `/exec` (not `/dev`). Paste it into the `ENDPOINT_URL` string in `script.js`.
@@ -32,7 +32,7 @@ A buildless, mobile-first invitation. Upload these files directly to GitHub Page
 
 The request uses `fetch()` with a form-encoded body and follows the Apps Script ContentService redirect. There is no JSON preflight and no `no-cors` mode. Success requires a readable `{ "ok": true }` response. If fetch fails, check the `/exec` URL, anonymous access and the Apps Script execution logs. A sign-in page, restricted deployment, browser policy or CORS failure must be fixed; never mask it with `no-cors`, which cannot confirm a saved row.
 
-Backend protections: server-side length/contact/guest validation, honeypot, deadline enforcement, formula-injection escaping, request IDs and a script lock for retries. The endpoint is public by design; a honeypot is basic spam resistance, not authentication. Do not put secret API keys in JavaScript. RSVP data is sent only on submit, not saved in browser storage.
+Backend protections: server-side name/guest validation (optional contact is supported for older forms), honeypot, deadline enforcement, formula-injection escaping, request IDs and a script lock for retries. The endpoint is public by design; a honeypot is basic spam resistance, not authentication. Do not put secret API keys in JavaScript. RSVP data is sent only on submit, not saved in browser storage.
 
 The same request ID is reused after a failed/uncertain submission, preventing duplicate rows for retries in that page session. A refreshed page starts a new request. Review the Sheet for separate submissions by the same family.
 
@@ -58,6 +58,12 @@ All asset links are relative so the site works beneath a GitHub Pages repository
 
 ## Local checks
 
-Serve the folder with `python3 -m http.server 8000` and open `http://localhost:8000` (run the command inside `seemantham`). Test narrow and wide screens, keyboard navigation, no selection, invalid contact, yes/guest counts, no/zero guests, success/error responses, and dates immediately before/at the close boundary. Do not change production cutoff dates merely to test; use mocks or an isolated test copy.
+Serve the folder with `python3 -m http.server 8000` and open `http://localhost:8000` (run the command inside `seemantham`). Test narrow and wide screens, keyboard navigation, no selection, yes/guest counts, no/zero guests, success/error responses, and dates immediately before/at the close boundary. Do not change production cutoff dates merely to test; use mocks or an isolated test copy.
 
 The included source checks verify JavaScript syntax, local asset references, deadline/countdown boundaries and backend response behavior with a mocked Sheet. A real Google deployment and browser integration check are still required after you supply the endpoint. No live RSVP Sheet or GitHub repository has been provisioned by this package.
+
+## Minimal RSVP update
+
+The visible form now asks only for name, attending yes/no, and total guests including the respondent. Phone/email and blessings have been removed. The server continues to support optional contact/message values for backward compatibility with the existing seven-column Sheet. If already deployed, replace the Apps Script with this updated `Code.gs` and deploy a new version so contact is no longer required. `ENDPOINT_URL` is currently blank; configure it before guests can submit.
+
+Response spreadsheet: https://docs.google.com/spreadsheets/d/101RrVt0vfOJSt36vHg3S6Gvy-6DkcsG0CxExJLMHLJM/edit . Keep its sharing restricted to the hosts; do not use the spreadsheet edit link as a guest-facing RSVP link. The public RSVP link is https://harshapriyag123.github.io/babyshower/#rsvp .
