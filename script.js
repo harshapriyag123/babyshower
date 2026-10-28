@@ -2,8 +2,8 @@
 // Paste the deployed Apps Script /exec URL here. It is public, not a secret.
 const ENDPOINT_URL = 'https://script.google.com/macros/s/AKfycbwxqGkAZhoB4pYOcejiNeewX_KqbbGVAHYJ-UaXWX4klrUc1c132F2HwcsnnuciNfg1yA/exec';
 const EVENT_DATE = new Date('2026-11-15T10:00:00-06:00');
-// Closed at midnight after October 31 in America/Chicago (still CDT).
-const RSVP_CLOSE = new Date('2026-11-01T00:00:00-05:00');
+// Closed at midnight after November 10 in America/Chicago (CST).
+const RSVP_CLOSE = new Date('2026-11-11T00:00:00-06:00');
 const form = document.querySelector('#rsvp-form');
 const fields = document.querySelector('#rsvp-fields');
 const status = document.querySelector('#form-status');
@@ -17,7 +17,7 @@ function updateTime(now = new Date()) {
   if (!remaining) document.querySelector('#countdown-note').textContent = 'The celebration day has arrived. Thank you for your blessings!';
   if (now >= RSVP_CLOSE) {
     fields.disabled = true;
-    document.querySelector('#deadline').textContent = 'RSVP closed on October 31, 2026. Please contact the hosts for changes.';
+    document.querySelector('#deadline').textContent = 'RSVP closed on November 10, 2026. Please contact the hosts for changes.';
   }
 }
 updateTime();

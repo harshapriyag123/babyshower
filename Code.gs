@@ -1,7 +1,7 @@
 // Google Apps Script. Set the Sheet ID, run setup(), then deploy as a web app.
 const SHEET_ID = '101RrVt0vfOJSt36vHg3S6Gvy-6DkcsG0CxExJLMHLJM';
 const SHEET_NAME = 'RSVPs';
-const CLOSE_AT = new Date('2026-11-01T00:00:00-05:00');
+const CLOSE_AT = new Date('2026-11-11T00:00:00-06:00');
 const HEADERS = ['Request ID', 'Received', 'Name', 'Phone or Email', 'Attending', 'Total Guests', 'Blessings'];
 function setup() {
   const book = SpreadsheetApp.openById(SHEET_ID);

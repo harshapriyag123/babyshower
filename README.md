@@ -51,7 +51,7 @@ All asset links are relative so the site works beneath a GitHub Pages repository
 ## Timing and accessibility
 
 - Countdown: `2026-11-15T10:00:00-06:00` (CST).
-- RSVP closes: `2026-11-01T00:00:00-05:00` (CDT), immediately after October 31. Frontend and backend both enforce this boundary. Guest device clocks affect the frontend; the server remains authoritative.
+- RSVP closes: `2026-11-11T00:00:00-06:00` (CST), immediately after November 10. Frontend and backend both enforce this boundary. Guest device clocks affect the frontend; the server remains authoritative.
 - After the ceremony start the countdown stays at zero with a celebration message.
 - No-JS visitors can read the invitation, open directions and download the calendar/artwork; the form explains that JavaScript is required.
 - Visible labels, keyboard focus, skip link, descriptive alt text, live submission status, and reduced-motion support are included. Countdown ticks are not announced each second.
@@ -67,3 +67,9 @@ The included source checks verify JavaScript syntax, local asset references, dea
 The visible form now asks only for name, attending yes/no, and total guests including the respondent. Phone/email and blessings have been removed. The server continues to support optional contact/message values for backward compatibility with the existing seven-column Sheet. If already deployed, replace the Apps Script with this updated `Code.gs` and deploy a new version so contact is no longer required. `ENDPOINT_URL` now contains the supplied deployed Apps Script URL. A live submission still requires that deployment to permit anonymous visitors.
 
 Response spreadsheet: https://docs.google.com/spreadsheets/d/101RrVt0vfOJSt36vHg3S6Gvy-6DkcsG0CxExJLMHLJM/edit . Keep its sharing restricted to the hosts; do not use the spreadsheet edit link as a guest-facing RSVP link. The public RSVP link is https://harshapriyag123.github.io/babyshower/#rsvp .
+
+## Invitation and online RSVP dates
+
+The printed invitation asks guests to RSVP by November 7, 2026. The website accepts responses through November 10, 2026, closing at `2026-11-11T00:00:00-06:00` (America/Chicago). Both `script.js` and `Code.gs` use this cutoff. Update the deployed Apps Script to a new version for its server-side deadline to change; a GitHub commit alone does not redeploy Google Apps Script.
+
+`assets/invitation.pdf` is a 5 × 7 inch clickable invitation: Website and QR link to the RSVP form, and the venue/address link opens Google Maps directions. `assets/invitation.png` is the matching 1500 × 2100 pixel PNG at 300 DPI. Neither invitation prints the raw URLs.
