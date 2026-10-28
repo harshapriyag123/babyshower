@@ -6,7 +6,7 @@ A buildless, mobile-first invitation. Upload these files directly to GitHub Page
 
 1. The supplied Google Apps Script `/exec` endpoint is configured in `script.js`. Before sharing, confirm anonymous Web app access and submit a response through the website to check that it reaches the Sheet.
 2. Add an approved host phone number or email in the footer of `index.html`. No contact details were provided, so none are invented. Example: `<a href="mailto:YOUR_EMAIL">Contact the hosts</a>`.
-3. The website and downloadable invitation use **9th Month Seemantham & Valaikappu, November 15, 2026, 10:00 AM onwards, Elite India–Banquet Hall & Catering, 1106 N US Hwy 377, Roanoke, TX 76262**. The updated invitation includes a labeled QR placeholder. Deity crops and decorative assets come from the supplied reference.
+3. The website and downloadable invitation use **9th Month Seemantham & Valaikappu, November 15, 2026, 10:00 AM onwards, Elite India–Banquet Hall & Catering, 1106 N US Hwy 377, Roanoke, TX 76262**. The updated invitation includes a verified scannable QR code linking to https://harshapriyag123.github.io/babyshower/#rsvp . Deity crops and decorative assets come from the supplied reference.
 
 ## Files
 
