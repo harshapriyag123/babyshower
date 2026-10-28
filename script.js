@@ -1,6 +1,6 @@
 'use strict';
 // Paste the deployed Apps Script /exec URL here. It is public, not a secret.
-const ENDPOINT_URL = '';
+const ENDPOINT_URL = 'https://script.google.com/macros/s/AKfycbwxqGkAZhoB4pYOcejiNeewX_KqbbGVAHYJ-UaXWX4klrUc1c132F2HwcsnnuciNfg1yA/exec';
 const EVENT_DATE = new Date('2026-11-15T10:00:00-06:00');
 // Closed at midnight after October 31 in America/Chicago (still CDT).
 const RSVP_CLOSE = new Date('2026-11-01T00:00:00-05:00');
