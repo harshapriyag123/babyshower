@@ -4,7 +4,7 @@ A buildless, mobile-first invitation. Upload these files directly to GitHub Page
 
 ## Before sharing
 
-1. Configure the Google Apps Script endpoint below and paste its `/exec` URL into `ENDPOINT_URL` in `script.js`. Until then the page explains that online RSVP is not open; it never pretends to save a response.
+1. The supplied Google Apps Script `/exec` endpoint is configured in `script.js`. Before sharing, confirm anonymous Web app access and submit a response through the website to check that it reaches the Sheet.
 2. Add an approved host phone number or email in the footer of `index.html`. No contact details were provided, so none are invented. Example: `<a href="mailto:YOUR_EMAIL">Contact the hosts</a>`.
 3. The website and downloadable invitation use **9th Month Seemantham & Valaikappu, November 15, 2026, 10:00 AM onwards, Elite India–Banquet Hall & Catering, 1106 N US Hwy 377, Roanoke, TX 76262**. The updated invitation includes a labeled QR placeholder. Deity crops and decorative assets come from the supplied reference.
 
@@ -64,6 +64,6 @@ The included source checks verify JavaScript syntax, local asset references, dea
 
 ## Minimal RSVP update
 
-The visible form now asks only for name, attending yes/no, and total guests including the respondent. Phone/email and blessings have been removed. The server continues to support optional contact/message values for backward compatibility with the existing seven-column Sheet. If already deployed, replace the Apps Script with this updated `Code.gs` and deploy a new version so contact is no longer required. `ENDPOINT_URL` is currently blank; configure it before guests can submit.
+The visible form now asks only for name, attending yes/no, and total guests including the respondent. Phone/email and blessings have been removed. The server continues to support optional contact/message values for backward compatibility with the existing seven-column Sheet. If already deployed, replace the Apps Script with this updated `Code.gs` and deploy a new version so contact is no longer required. `ENDPOINT_URL` now contains the supplied deployed Apps Script URL. A live submission still requires that deployment to permit anonymous visitors.
 
 Response spreadsheet: https://docs.google.com/spreadsheets/d/101RrVt0vfOJSt36vHg3S6Gvy-6DkcsG0CxExJLMHLJM/edit . Keep its sharing restricted to the hosts; do not use the spreadsheet edit link as a guest-facing RSVP link. The public RSVP link is https://harshapriyag123.github.io/babyshower/#rsvp .
