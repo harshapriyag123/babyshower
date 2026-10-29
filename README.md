@@ -5,7 +5,7 @@ Simple, buildless invitation website for Sankarraj & Harsha Priya. The public si
 ## Event
 
 Sunday, November 15, 2026, 10:00 AM onwards (Central Standard Time).
-Elite India-BANQUET HALL & CATERING, 1106 N US Hwy 377, Roanoke, TX 76262. Lunch will be provided.
+Elite India-BANQUET HALL & CATERING, 1106 N US Hwy 377, Roanoke, TX 76262. Please join us for lunch following the celebration.
 
 The ivory, burgundy, olive and soft gold floral design matches the invitation. The visible RSVP form asks only for name, attendance and guest count. Declining sets the count to zero.
 
