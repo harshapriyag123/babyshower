@@ -30,12 +30,35 @@ function updateGuests() {
   form.guests.value = declined ? '0' : Math.max(1, Number(form.guests.value) || 1);
 }
 form.attending.addEventListener('change', updateGuests);
+// Google Apps Script redirects JSON responses across origins, so verify saves
+// using a JSONP lookup rather than trying to read a cross-origin POST response.
+function checkSaved(requestId) {
+  return new Promise((resolve) => {
+    const callback = 'rsvpCallback_' + Math.random().toString(36).slice(2, 14);
+    const script = document.createElement('script');
+    let done = false;
+    const finish = (value) => {
+      if (done) return;
+      done = true;
+      clearTimeout(timeout);
+      delete window[callback];
+      script.remove();
+      resolve(value);
+    };
+    window[callback] = (result) => finish(result && result.saved === true);
+    const timeout = setTimeout(() => finish(false), 7000);
+    script.onerror = () => finish(false);
+    script.src = ENDPOINT_URL + '?callback=' + encodeURIComponent(callback) +
+      '&requestId=' + encodeURIComponent(requestId) + '&t=' + Date.now();
+    document.head.appendChild(script);
+  });
+}
+const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 form.addEventListener('submit', async (event) => {
   event.preventDefault();
   if (busy) return;
   updateTime();
-  if (new Date() >= RSVP_CLOSE) return;
-  if (!form.reportValidity()) return;
+  if (new Date() >= RSVP_CLOSE || !form.reportValidity()) return;
   const data = new FormData(form);
   const name = String(data.get('name') || '').trim();
   if (!name) { status.textContent = 'Please enter your name.'; return; }
@@ -46,12 +69,15 @@ form.addEventListener('submit', async (event) => {
   const payload = new URLSearchParams({name, attending: form.attending.value, guests: form.attending.value === 'no' ? '0' : form.guests.value, website: String(data.get('website') || ''), requestId});
   busy = true; submit.disabled = true; submit.textContent = 'Sending…'; status.textContent = '';
   try {
-    // A form-encoded POST avoids an unnecessary cross-origin preflight.
-    // Do not use no-cors: an opaque response cannot confirm that Sheets saved it.
-    const response = await fetch(ENDPOINT_URL, {method: 'POST', body: payload, redirect: 'follow', signal: AbortSignal.timeout(25000)});
-    if (!response.ok) throw new Error('HTTP error');
-    const result = await response.json();
-    if (result.ok !== true) throw new Error(result.error || 'Not saved');
+    // The POST response is opaque; never treat that alone as proof of saving.
+    // Keep the request ID for safe retries.
+    await fetch(ENDPOINT_URL, {method: 'POST', mode: 'no-cors', body: payload, signal: AbortSignal.timeout(25000)});
+    let saved = false;
+    for (let attempt = 0; attempt < 5; attempt++) {
+      await wait(attempt === 0 ? 1200 : 1600);
+      if (await checkSaved(requestId)) { saved = true; break; }
+    }
+    if (!saved) throw new Error('RSVP not confirmed in Sheet');
     form.reset(); delete form.dataset.requestId; updateGuests();
     status.textContent = 'Thank you! Your RSVP has been received. We’re grateful for your love and blessings.';
   } catch (error) {
