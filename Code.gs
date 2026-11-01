@@ -10,11 +10,35 @@ function setup() {
   sheet.setFrozenRows(1);
 }
 function json_(value) {
+  console.log('RSVP result: ' + JSON.stringify(value));
   return ContentService.createTextOutput(JSON.stringify(value)).setMimeType(ContentService.MimeType.JSON);
 }
 function safeCell_(text) {
   // Prevent guest-supplied strings from becoming spreadsheet formulas.
   return /^[=+\-@\t\r\n]/.test(text) ? "'" + text : text;
+}
+// JSONP confirmation checks only whether a random request ID was saved.
+// It does not expose guest names or other personal information.
+function doGet(e) {
+  const p = (e && e.parameter) || {};
+  const id = String(p.requestId || '');
+  const callback = String(p.callback || '');
+  if (!/^[a-zA-Z0-9-]{8,100}$/.test(id) ||
+      !/^rsvpCallback_[a-zA-Z0-9_]{8,100}$/.test(callback)) {
+    return ContentService.createTextOutput('Invalid request');
+  }
+  let saved = false;
+  try {
+    const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName(SHEET_NAME);
+    if (sheet && sheet.getLastRow() > 1) {
+      saved = !!sheet.getRange(2, 1, sheet.getLastRow() - 1, 1)
+        .createTextFinder(id).matchEntireCell(true).findNext();
+    }
+  } catch (err) {
+    console.error('RSVP lookup failed: ' + err);
+  }
+  return ContentService.createTextOutput(callback + '(' + JSON.stringify({saved: saved}) + ');')
+    .setMimeType(ContentService.MimeType.JAVASCRIPT);
 }
 function doPost(e) {
   const lock = LockService.getScriptLock();
@@ -41,6 +65,6 @@ function doPost(e) {
     sheet.appendRow([id, new Date(), safeCell_(name), safeCell_(contact), attending, guests, safeCell_(message)]);
     SpreadsheetApp.flush();
     return json_({ok: true});
-  } catch (error) { return json_({ok: false, error: 'Unable to save. Please retry.'}); }
+  } catch (error) { console.error('RSVP save failed: ' + (error && error.stack || error)); return json_({ok: false, error: 'Unable to save. Please retry.'}); }
   finally { if (lock.hasLock()) lock.releaseLock(); }
 }
